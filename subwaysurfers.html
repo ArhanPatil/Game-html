@@ -1,0 +1,201 @@
+<!-- Ultimate Game Stash file--> 
+<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
+
+
+<base href="https://cdn.jsdelivr.net/gh/bubbls/subwaysurfersmerge/">
+<html>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>Subway Surfers: Barcelona</title>
+    <link rel="icon" href="img/FirstAvatar.png">  
+    <script src="4399.sf.js"></script>
+    <script>
+        window.config = { 
+            loader: "unity",
+            debug: false,
+            maxRatio: 16 / 9,
+            minRatio: 9 / 16,
+            title: 'Subway Surfers: Houston',
+            unityVersion: '2019.4.18f1',
+            unityWebglBuildUrl: 'Houston.json',
+            fileSize: 35,
+            cachedDecompressedFileSizes: {
+                'Houston.asm.code.unityweb': 9284927,
+                'Houston.asm.framework.unityweb': 88106,
+                'Houston.asm.memory.unityweb': 1003567,
+                'Houston.data.unityweb': 17962100,
+                'Houston.wasm.code.unityweb': 7468688,
+                'Houston.wasm.framework.unityweb': 92489,
+            },
+        };
+        window.mergedBlobUrls = {};
+        window.assetsReady = false;
+
+        async function mergeSplitFile(fileUrlBase, numParts = 2) {
+            const partUrls = Array.from({ length: numParts }, (_, i) => 
+                `${fileUrlBase}.part${i + 1}`
+            );
+
+            try {
+                const responses = await Promise.all(
+                    partUrls.map(url => fetch(url))
+                );
+
+                if (responses.some(r => !r.ok)) {
+                    return null;
+                }
+
+                const parts = await Promise.all(
+                    responses.map(r => r.arrayBuffer())
+                );
+
+                const combinedBlob = new Blob(parts, {
+                    type: 'application/octet-stream'
+                });
+
+                return URL.createObjectURL(combinedBlob);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function setupXHRInterceptor() {
+            if (window.xhrInterceptorInstalled) {
+                return;
+            }
+            
+            const originalOpen = XMLHttpRequest.prototype.open;
+            const originalSend = XMLHttpRequest.prototype.send;
+
+            XMLHttpRequest.prototype.open = function(method, url, ...args) {
+                this._url = url;
+                this._method = method;
+                this._args = args;
+                
+                let finalUrl = url;
+                for (const [filename, blobUrl] of Object.entries(window.mergedBlobUrls)) {
+                    if (url.includes(filename)) {
+                        finalUrl = blobUrl;
+                        break;
+                    }
+                }
+                
+                return originalOpen.call(this, method, finalUrl, ...args);
+            };
+
+            XMLHttpRequest.prototype.send = function(...args) {
+                const xhr = this;
+                
+                if (!window.assetsReady) {
+                    const checkReady = setInterval(() => { 
+                        if (window.assetsReady) {
+                            clearInterval(checkReady);
+                            originalSend.apply(xhr, args);
+                        }
+                    }, 50);
+                    return;
+                }
+                
+                return originalSend.apply(this, args);
+            };
+            
+            window.xhrInterceptorInstalled = true;
+        }
+
+        async function prepareGameAssets() {
+            try {
+                window.assetsReady = false;
+                delete window.xhrInterceptorInstalled;
+                window.mergedBlobUrls = {};
+                
+                setupXHRInterceptor();
+                
+                const filesToMerge = [
+                    'Houston.data.unityweb',
+                    'Houston.wasm.code.unityweb'
+                ];
+                 
+                for (const filename of filesToMerge) {
+                    const blobUrl = await mergeSplitFile(filename, 2);
+                    if (blobUrl) {
+                        window.mergedBlobUrls[filename] = blobUrl;
+                    } 
+                }
+                
+                window.assetsPrepared = true;
+                window.assetsReady = true;
+                
+            } catch (error) {
+                window.assetsPrepared = false;
+                window.assetsReady = true;
+            }
+        }
+
+        prepareGameAssets();
+
+    </script>
+<style>
+body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        header {
+            background: #1e88e5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .btn {
+            background: #1e88e5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+</style>
+<nav>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net">Home</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/drivemad.html">Drive Mad</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/monkeymart.html">MonkeyMart</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/mountainbike.html">Mountain Bike Racer</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/clashofvikings.html">Clash Of Vikings</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/paperio.html">Paper.io</a>
+    <a href="https://agreeable-meadow-0f4e2561e.7.azurestaticapps.net/Minecraft.html">Minecraft</a>
+</nav>
+</head>
+<body>
+    <script src="master-loader.js"></script>
+</body>
+</html>
