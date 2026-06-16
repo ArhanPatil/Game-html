@@ -1,59 +1,77 @@
-<Module>
-
-
-<!-- Ultimate Game Stash file--> 
-<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
-
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+<!-- saved from url=(0041)https://medv.io/bit-planes/?mode=survival -->
+<html lang="en"><head>
+<script src="password.js"></script>
+<script>requireAuth();</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Bit Planes</title>
-<link href="https://cdn.jsdelivr.net/gh/selenite-cc/selenite-old@9c743188888af0986c8c7b293dbac8f9e421a4ee/bit-planes/styles.css" rel="stylesheet"></head>
-<body>
+<link href="./Bit Planes_files/styles.css" rel="stylesheet"></head>
+<body data-new-gr-c-s-check-loaded="14.1138.0" data-gr-ext-installed="">
 <main>
     <section class="welcome">
-<!--        <div class="ribbon right green">-->
-<!--            <a href="https://github.com/antonmedv/bit-planes" tabindex="-1">Fork me on GitHub</a>-->
+<!--        <div class="ribbon right black">-->
+<!--            <a href="" tabindex="-1" target="_blank"></a>-->
 <!--        </div>-->
+
         <h1>
             <i class="logo"></i>
             Bit Planes
             <i class="logo"></i>
         </h1>
-        <p>
-            <strong>Controls:</strong><br>
-        </p>
-        <ul>
-            <li>Arrows <kbd>↑</kbd><kbd>↓</kbd> — thrust level.</li>
-            <li>Arrows <kbd>←</kbd><kbd>→</kbd> — elevator controls.</li>
-            <li><kbd>Space</kbd> — fire a gun. <kbd>X</kbd> — deploy a missile.</li>
-            <li><kbd>C</kbd> — catapult / parachute and get new plane at the barn.</li>
-        </ul>
 
         <form id="game">
             <label>
                 <input type="text" name="nickname" placeholder="Nickname">
             </label>
-            <p>
-                <strong>Game mode:</strong>
-            </p>
+            <!--            <label style="margin-left: 10px">-->
+            <!--                Gender:-->
+            <!--                <select name="gender">-->
+            <!--                    <option value="male" selected>Male</option>-->
+            <!--                    <option value="female">Female</option>-->
+            <!--                </select>-->
+            <!--            </label>-->
             <div class="game-modes">
-                <div>
-                    <label title="Everyone against everyone."><input type="radio" name="mode" value="death-match" checked autofocus> Death match</label>
+                <div class="game-modes-column">
+                    <p>
+                        <strong>Game modes:</strong>
+                    </p>
+                    <div>
+                        <label title="Everyone against everyone."><input type="radio" name="mode" value="death-match" checked="" autofocus=""> Death match</label>
+                    </div>
+                    <div>
+                        <label title="Fight between teams."><input type="radio" name="mode" value="teams"> Teams</label>
+                    </div>
+                    <div>
+                        <label title="One on one duel."><input type="radio" name="mode" value="duel"> Duel</label>
+                    </div>
+                    <div>
+                        <label title="Survive with a waives of enemies."><input type="radio" name="mode" value="survival"> Survival</label>
+                    </div>
                 </div>
-                <div>
-                    <label title="Fight between teams."><input type="radio" name="mode" value="teams"> Teams</label>
+                <div class="game-modes-column">
+                    <p>
+                        <strong>Fun modes:</strong>
+                    </p>
+                    <div>
+                        <label title="Two big teams against each other."><input type="radio" name="mode" value="swarm">
+                            Swarm</label>
+                    </div>
+                    <div>
+                        <label title="Total domination."><input type="radio" name="mode" value="domination"> Domination</label>
+                    </div>
+                    <div>
+                        <label title="Revenge of cows."><input type="radio" name="mode" value="revenge"> Revenge</label>
+                    </div>
                 </div>
-                <div>
-                    <label title="One on one duel."><input type="radio" name="mode" value="duel"> Duel</label>
-                </div>
-                <div>
-                    <label title="Survive with a waives of enemies."><input type="radio" name="mode" value="survival"> Survival</label>
+                <div class="game-modes-column">
+                    <p>
+                        <strong>Split screen:</strong>
+                    </p>
+                    <div>
+                        <label title="Split duel"><input type="radio" name="mode" value="split-duel" onchange="console.log(&#39;split&#39;)"> Duel</label>
+                    </div>
                 </div>
             </div>
             <div class="action">
@@ -61,8 +79,50 @@
             </div>
         </form>
 
-        <div class="stats"></div>
-        <canvas class="demo"></canvas>
+        <div class="controls-map">
+            <div>
+                <p>
+                    <strong>Controls:</strong><br>
+                </p>
+                <ul>
+                    <li>Arrows <kbd>↑</kbd><kbd>↓</kbd> — thrust level</li>
+                    <li>Arrows <kbd>←</kbd><kbd>→</kbd> — elevator controls</li>
+                    <li><kbd>Space</kbd> — fire a gun</li>
+                    <li><kbd>X</kbd> — deploy a missile</li>
+                    <li><kbd>C</kbd> — catapult / parachute</li>
+                </ul>
+            </div>
+            <div>
+                <p>
+                    <strong>Split screen:</strong><br>
+                </p>
+                <ul>
+                    <li>Player 1 – <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> +
+                        catapult with <kbd>M</kbd> and fire with <kbd>,</kbd><kbd>.</kbd>
+                    </li>
+                    <li>Player 2 – <kbd>W</kbd><kbd>S</kbd><kbd>A</kbd><kbd>D</kbd> +
+                        catapult with <kbd>C</kbd> and fire with <kbd>V</kbd><kbd>B</kbd>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stats">
+        You fired <em>255</em> <i class="ammo"></i> bullets 
+        and <em>52</em> <i class="missile"></i> missiles
+        and destroyed <i class="target"></i> <em>6</em> planes,
+        and unfortunately died <i class="skull"></i> <em>3</em> times. <br>
+        Also inadvertently you killed <em>16</em> <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjYiIGhlaWdodD0iNjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBmaWxsPSIjRThFRUVCIiBkPSJNNDkuMjU1IDQyLjc5MnYxOC42MjVsLTMuMjUtMTguNSAzLjI1LS4xMjVNNDMuNDQ2IDQyLjc5MnYxOC42MjVsLTMuMjUtMTguNSAzLjI1LS4xMjUiLz48cGF0aCBmaWxsPSIjMkEyQjI5IiBkPSJNNDkuMjU1IDU5LjE2N2wxLjQ1OCAyLjI1aC0yLjI1bC4zOTctMi4yNWguMzk1TTQzLjQyMiA1OS4xNjdsMS40NTggMi4yNWgtMi4yNWwuMzk2LTIuMjVoLjM5NiIvPjxnPjxwYXRoIGZpbGw9IiNFOEVFRUIiIGQ9Ik0xNy4yNTUgNDIuNzkydjE4LjYyNWwzLjI1LTE4LjUtMy4yNS0uMTI1TTEyLjExMiA0Mi43OTJ2MTguNjI1bDMuMjUtMTguNS0zLjI1LS4xMjUiLz48cGF0aCBmaWxsPSIjMkEyQjI5IiBkPSJNMTIuNTEgNTkuMTY3bDEuNDU4IDIuMjVoLTIuMjVsLjM5Ny0yLjI1aC4zOTVNMTcuNjMgNTkuMTY3bDEuNDU4IDIuMjVoLTIuMjVsLjM5Ny0yLjI1aC4zOTUiLz48L2c+PGc+PHBhdGggZD0iTTEzLjI1NSA0My42NjdjMCAyLjA3MSAyLjU0NiAzLjc1IDUuNjg3IDMuNzUgMy4xNDIgMCA1LjY4OC0xLjY3OSA1LjY4OC0zLjc1IDAtMi4wNzEtMi41NDYtMy43NS01LjY4OC0zLjc1LTMuMTQxIDAtNS42ODcgMS42NzktNS42ODcgMy43NSIgZmlsbD0iI0YxRDFDNSIvPjxwYXRoIGQ9Ik0xMS44NjMgNDIuOTE3aDM2LjA0MWE4LjEwNyA4LjEwNyAwIDAgMCA4LjEwNy04LjEwN1YxNy40NDFhOC4xMDcgOC4xMDcgMCAwIDAtOC4xMDctOC4xMDdIMTEuODYzYTguMTA3IDguMTA3IDAgMCAwLTguMTA3IDguMTA3VjM0LjgxYTguMTA3IDguMTA3IDAgMCAwIDguMTA3IDguMTA3IiBmaWxsPSIjRThFRUVCIi8+PHBhdGggZD0iTTQ1Ljg4IDI0LjI1YzMuOTExIDAgNy40NjEgMS4wNCAxMC4xMzEgMi43Mjl2Ny44MzFhOC4xMDcgOC4xMDcgMCAwIDEtOC4xMDcgOC4xMDdIMzcuMDM3Yy0zLjcyNy0xLjg4LTYuMTU3LTQuOTA3LTYuMTU3LTguMzMzIDAtNS43MDcgNi43MTYtMTAuMzM0IDE1LTEwLjMzNE0yMy4zOCAxOS45OTVjMCAyLjM1IDIuMTI3IDQuMjU1IDQuNzUgNC4yNTVzNC43NS0xLjkwNSA0Ljc1LTQuMjU1YzAtMi4zNS0yLjEyNy00LjI1NS00Ljc1LTQuMjU1cy00Ljc1IDEuOTA1LTQuNzUgNC4yNTVNMTAuNTYgOS40NDhjNC42OTQuNzYzIDguMzIgNS42OTQgOC4zMiAxMS42NzcgMCA2LjUxMy00LjI5MSAxMS43OTItOS41ODMgMTEuNzkyLTIuMDY3IDAtMy45NzYtLjgxMy01LjU0MS0yLjE4MlYxNy40NDFjMC00LjAzMyAyLjk0OC03LjM2OSA2LjgwNC03Ljk5M001Ni4wMTEgMTcuNDQxdjIuMWExOC44MzUgMTguODM1IDAgMCAxLTQuMTMxLjQ1NGMtNi4zNTEgMC0xMS41LTMuMDA5LTExLjUtNi43MiAwLTEuNDc0LjgyMi0yLjgzMyAyLjE5OS0zLjk0MWg1LjMyNWE4LjEwNyA4LjEwNyAwIDAgMSA4LjEwNyA4LjEwNyIgZmlsbD0iIzJBMkIyOSIvPjxwYXRoIGZpbGw9IiMyQTJCMjkiIGQ9Ik01LjEzIDE1Ljc0TC4yNTUgMjYuNDE3bDQuODc1LTcuNVYxNS43NCIvPjwvZz48Zz48cGF0aCBmaWxsPSIjMkEyQjI5IiBkPSJNNDkuMzc1IDQuNzkyTDQ5LjU4MyAwbDMuMjA5IDQuNzkyaC0zLjQxN001OS43NSA0Ljc5MlYwbC0yLjk1OCA0Ljc5MmgyLjk1OCIvPjxwYXRoIGQ9Ik00OS4zMTMgNC43OTJsLjA2Mi4wODd2LS4wODdINTkuNzVMNjYgMy4xMDVzLTMuMTgyIDUuMzY2LTUuOTI4IDUuNjA1bDEuMTc4IDE0LjMzMi0xMS44NzUgMS4yMDhWOC43MmwtLjA2Mi4wMWMtMi44MTMuMTg3LTYuMjUtNS42MjUtNi4yNS01LjYyNWw2LjI1IDEuNjg3IiBmaWxsPSIjRThFRUVCIi8+PHBhdGggZD0iTTQ2Ljc1IDI2LjQxN2MwIDMuMjQ1IDQuMDAyIDUuODc1IDguOTM4IDUuODc1IDQuOTM2IDAgOC45MzctMi42MyA4LjkzNy01Ljg3NXMtNC4wMDEtNS44NzUtOC45MzctNS44NzVjLTQuOTM2IDAtOC45MzggMi42My04LjkzOCA1Ljg3NSIgZmlsbD0iI0YxRDFDNSIvPjxwYXRoIGQ9Ik01Ni4wNzMgMTEuMDk0YS43Mi43MiAwIDEgMCAxLjQzOCAwIC43Mi43MiAwIDAgMC0xLjQzOCAwIiBmaWxsPSIjMkEyQjI5Ii8+PHBhdGggZD0iTTU4LjEzNiAyNS40OGExLjIyOSAxLjIyOSAwIDEgMCAyLjQ1NyAwIDEuMjI5IDEuMjI5IDAgMCAwLTIuNDU3IDBNNTEuMDUyIDI1LjQ4YTEuMjMgMS4yMyAwIDEgMCAyLjQ1OSAwIDEuMjMgMS4yMyAwIDAgMC0yLjQ1OSAwIiBmaWxsPSIjRDZBMjk3Ii8+PHBhdGggZD0iTTUyLjc5MiAxMS4wOTRhLjcyLjcyIDAgMSAwIDEuNDM4IDAgLjcyLjcyIDAgMCAwLTEuNDM4IDAiIGZpbGw9IiMyQTJCMjkiLz48L2c+PC9nPjwvc3ZnPg==" alt="cow" style="height: 14px"> cows. 
+    </div>
+
+        <canvas class="demo" width="1600" height="600"></canvas>
+
+<!--        <div class="leaderboards">-->
+<!--            <div class="death-match">-->
+<!--                <h3>Best of Death Match (7 days)</h3>-->
+<!--                <div id="death-match-leaderboard" class="rows"></div>-->
+<!--            </div>-->
+<!--        </div>-->
     </section>
 </main>
 
@@ -94,26 +154,39 @@
         </div>
     </div>
     <canvas class="minimap"></canvas>
-    <div class="log"></div>
+    <div class="log"><div><span class="message"><span style="color: #244b8c;">Ulik</span> <div class="icon missile"></div> <span style="color: #ff7d78;">Spartan</span></span></div><div><span class="message"><span style="color: #d23be7;">Baroness S'Bak</span> <div class="icon missile"></div> <span style="color: #d35400;">Bulletgirl</span></span></div><div><span class="message"><span style="color: #d23be7;">Baroness S'Bak</span> <div class="icon target"></div> <span style="color: #00a885;">Bullseye</span></span></div><div><span class="message"><span style="color: #8e44ad;">Talisman</span> <div class="icon missile"></div> <span style="color: #d23be7;">Baroness S'Bak</span></span></div></div>
 </div>
 <canvas id="canvas"></canvas>
+<canvas id="canvas1"></canvas>
+<canvas id="canvas2"></canvas>
 
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window, document, "script", "", "ym");
+<script async="" src="./Bit Planes_files/tag.js.download"></script><script type="text/javascript">
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () {
+      (m[i].a = m[i].a || []).push(arguments)
+    }
+    m[i].l = 1 * new Date()
+    for (var j = 0; j < document.scripts.length; j++) {
+      if (document.scripts[j].src === r) {
+        return
+      }
+    }
+    k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+  })
+  (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym')
 
-    ym(94977381, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true
-    });
+  ym(94977381, 'init', {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+  })
 </script>
-<noscript><div><img src="" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/94977381" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
 <!-- /Yandex.Metrika counter -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/selenite-cc/selenite-old@9c743188888af0986c8c7b293dbac8f9e421a4ee/bit-planes/index.js"></script></body>
-</html>
+<script type="text/javascript" src="./Bit Planes_files/index.js.download"></script>
+
+</body></html>
